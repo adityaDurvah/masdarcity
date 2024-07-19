@@ -1,0 +1,15 @@
+// styles.scss
+
+$primary-color: #3498db;
+
+.container {
+  flex: 1;
+  background-color: $primary-color;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  font-size: 24px;
+  color: white;
+}
