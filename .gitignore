@@ -34,3 +34,4 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 metro.config.js
+package-lock.json
