@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import { Card, Text, Badge, Searchbar } from "react-native-paper";
+import { getServiceListItems } from "../../Services/apiRequests";
 
 interface Item {
   id: string;
@@ -56,8 +57,13 @@ const ServiceListScreen: React.FC = () => {
   const [filteredData, setFilteredData] = useState<Item[]>(data);
 
   useEffect(() => {
+    getListItems();
 
   }, []);
+
+  const getListItems = (async () => {
+    await getServiceListItems();
+  });
 
   const onChangeSearch = (query: string) => {
     setSearchQuery(query);
