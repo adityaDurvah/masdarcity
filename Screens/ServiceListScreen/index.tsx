@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet, Touchable, Pressable } from "react-native";
 import { Card, Text, Badge, Searchbar } from "react-native-paper";
 import { getServiceListItems } from "../../Services/apiRequests";
 
@@ -36,23 +36,24 @@ const data: Item[] = [
   // Add more items as needed
 ];
 
-const TaskCard: React.FC<{ item: Item }> = ({ item }) => (
+const TaskCard: React.FC<{ item: Item, navigation: any }> = ({ item, navigation }) => (
   <Card style={styles.card}>
-    <Card.Content>
-      <View style={styles.row}>
-        <Text style={styles.srNumber}>{item.id}</Text>
-        <View style={styles.column2}>
-          <Text style={styles.title}>{item.name}</Text>
-          <Text style={styles.company}>{item.company}</Text>
-          <Badge style={styles.status}>{item.status}</Badge>
+    <Pressable onPress={() => navigation.navigate("ServiceStepsScreen", { SRId: item.id })}>
+      <Card.Content>
+        <View style={styles.row}>
+          <Text style={styles.srNumber}>{item.id}</Text>
+          <View style={styles.column2}>
+            <Text style={styles.title}>{item.name}</Text>
+            <Text style={styles.company}>{item.company}</Text>
+            <Badge style={styles.status}>{item.status}</Badge>
+          </View>
+          <Text style={styles.date}>{item.date}</Text>
         </View>
-        <Text style={styles.date}>{item.date}</Text>
-      </View>
-    </Card.Content>
+      </Card.Content></Pressable>
   </Card>
 );
 
-const ServiceListScreen: React.FC = () => {
+const ServiceListScreen: React.FC<any> = ({ navigation }: { navigation: any }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filteredData, setFilteredData] = useState<Item[]>(data);
 
@@ -79,7 +80,7 @@ const ServiceListScreen: React.FC = () => {
     }
   };
 
-  const renderItem = ({ item }: { item: Item }) => <TaskCard item={item} />;
+  const renderItem = ({ item }: { item: Item }) => <TaskCard item={item} navigation={navigation} />;
 
   return (
     <View style={styles.container}>
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
 
   column2: {
     width: '60%'
-  }, 
+  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-around",    
+    justifyContent: "space-around",
     flexWrap: "wrap",
   },
 
@@ -126,12 +127,12 @@ const styles = StyleSheet.create({
     color: "#F79256",
     fontSize: 16,
     fontWeight: "bold",
-    marginRight: 16, 
+    marginRight: 16,
   },
   date: {
     color: "#000",
     fontSize: 14,
-    alignSelf: "flex-end", 
+    alignSelf: "flex-end",
 
   },
   title: {
