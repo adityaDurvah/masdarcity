@@ -2,6 +2,7 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-paper';
 import colors from '../../Styles/colors';
 import { Text } from '../Text';
+import { formatDate } from '../../Services/commonUtils';
 
 interface StepProps {
   stepfields: [{
@@ -31,13 +32,13 @@ export const StepCard: React.FC<any> = (props: StepProps) => {
         </View>
         <View style={styles.col}>
           <Text style={styles.stepDates}>
-            Created: {createddate.split(' ')[0]}
+            Created: {formatDate(createddate, 'DD-MM-YYYY')}
           </Text>
           {ClosedDateTime__c == 'null' && lastmodifieddate != 'null' ? <Text style={styles.stepDates}>
-            Modified: {lastmodifieddate.split(' ')[0]}
+            Modified: {formatDate(lastmodifieddate, 'DD-MM-YYYY')}
           </Text> : null}
           {ClosedDateTime__c != 'null' ? <Text style={styles.stepDates}>
-            Closed: {ClosedDateTime__c.split(' ')[0]}
+            Closed: {formatDate(ClosedDateTime__c, 'DD-MM-YYYY')}
           </Text> : null}
         </View>
         {Comments__c && <Text style={styles.comments}>Comments: {Comments__c}</Text>}
