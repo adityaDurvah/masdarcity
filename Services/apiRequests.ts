@@ -9,10 +9,10 @@ import apiClient from './apiManager';
 export const getServiceListItems = async () => {
 
     try {
-        const response = await apiClient.get('/SRList');
-        console.log(response.data);
+        const response = await apiClient.get('/SRList');        
         return response.data;
       } catch (error) {
         throw error;
       }
 };
+

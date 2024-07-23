@@ -31,7 +31,9 @@ interface Data {
   Steps: Step[];
 }
 export const StepsScreen: React.FC<any> = ({ navigation, route }) => {
+  
   const { data, getData } = getApiData<Data>('/SRDetails', { SRId: '123234' || route.params.SRId });
+
   useEffect(() => {
     getData()
   }, [])
