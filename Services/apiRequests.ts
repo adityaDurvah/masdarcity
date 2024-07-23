@@ -8,7 +8,6 @@ import apiClient from './apiManager';
 // Example: Get a list of items
 export const getServiceListItems = async () => {
 
-
     try {
         const response = await apiClient.get('/SRList');
         console.log(response.data);
@@ -17,4 +16,3 @@ export const getServiceListItems = async () => {
         throw error;
       }
 };
-
