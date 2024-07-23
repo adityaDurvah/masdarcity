@@ -104,7 +104,6 @@ const ServiceListScreen: React.FC<any> = ({
     setFilteredData(formatData(response));
   };
 
-
   const handleSearch = (text: string) => {
     setSearchQuery(text);
     onChangeSearch(text);
@@ -129,7 +128,7 @@ const ServiceListScreen: React.FC<any> = ({
       } else {
         setFilteredData(listData);
       }
-    }, 500),
+    }, 300),
     []
   );
 
@@ -204,7 +203,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 8,
     width: "80%",
-    marginBottom: 4
+    marginBottom: 4,
   },
 });
 
