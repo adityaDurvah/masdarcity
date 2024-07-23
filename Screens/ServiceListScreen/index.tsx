@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { View, FlatList, StyleSheet, Touchable, Pressable } from "react-native";
-import { Card, Text, Badge, Searchbar } from "react-native-paper";
+import { Card, Badge, Searchbar } from "react-native-paper";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { getServiceListItems } from "../../Services/apiRequests";
 import colors from "../../Styles/colors";
 import { globalStyles } from "../../Styles/global";
 import { formatDate } from "../../Services/commonUtils";
 import { debounce } from "lodash";
+import { Text } from "../../Components/Text";
 
 interface Item {
   id: string;
@@ -44,7 +45,7 @@ const TaskCard: React.FC<{ item: SRDetail; navigation: any }> = ({
   <Card style={globalStyles.card}>
     <Pressable
       onPress={() =>
-        navigation.navigate("ServiceStepsScreen", { SRId: item.ID })
+        navigation.navigate("ServiceStepsScreen", { id: item.ID, SRId: item.Name, name: item.ServiceName })
       }
     >
       <Card.Content>
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#000",
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: "bold",
     // marginVertical: 4,
   },

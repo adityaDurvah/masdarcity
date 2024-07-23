@@ -3,7 +3,8 @@ import React from 'react'
 import { Form } from '../../Components/Form'
 
 
-export const DocumentUpload: React.FC = ({ navigation }: any) => {
+export const DocumentUpload: React.FC = ({ navigation, route }: any) => {
+    const { statusList } = route.params
     return (
         <View style={styles.container}>
             <Text style={styles.header}>Document Upload</Text>
@@ -14,7 +15,7 @@ export const DocumentUpload: React.FC = ({ navigation }: any) => {
                         type: 'dropdown',
                         placeholder: 'Select Status',
                         required: true,
-                        options: ['Pending', 'Approved', 'Rejected'],
+                        options: statusList.map(({ label, ID }: { label: string, ID: any }) => ({ label, value: ID })),
                         label: 'Status'
                     }
                 ]}

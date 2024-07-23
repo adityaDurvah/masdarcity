@@ -12,10 +12,11 @@ interface StepProps {
   currentStatus: string,
   statusMasterList: [],
   statusList: []
+  navigation: any
 }
 
 export const StepCard: React.FC<any> = (props: StepProps) => {
-  const { stepfields, currentStatus, statusMasterList, ...rest } = props
+  const { stepfields, currentStatus, statusMasterList, navigation, ...rest } = props
   const values: any = {}
   stepfields.forEach(({ API_Name, value }) => {
     values[API_Name] = value
@@ -43,7 +44,7 @@ export const StepCard: React.FC<any> = (props: StepProps) => {
       </Card.Content>
       <View style={styles.divider} />
       <Card.Actions>
-        <TouchableOpacity style={[styles.button, ...(statusMasterList.length === 0 ? [styles.disabled] : []),]}>
+        <TouchableOpacity onPress={() => { navigation.navigate('DocumentUpload', { statusList: statusMasterList }) }} style={[styles.button, ...(statusMasterList.length === 0 ? [styles.disabled] : []),]}>
           <Text style={styles.buttonText}>{currentStatus}</Text>
         </TouchableOpacity>
       </Card.Actions>

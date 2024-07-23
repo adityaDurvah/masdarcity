@@ -31,8 +31,8 @@ interface Data {
   Steps: Step[];
 }
 export const StepsScreen: React.FC<any> = ({ navigation, route }) => {
-  
-  const { data, getData } = getApiData<Data>('/SRDetails', { SRId: '123234' || route.params.SRId });
+  const { SRId, name } = route.params
+  const { data, getData } = getApiData<Data>('/SRDetails', { SRId: route.params.SRId });
 
   useEffect(() => {
     getData()
@@ -50,12 +50,12 @@ export const StepsScreen: React.FC<any> = ({ navigation, route }) => {
         return stepNumberB - stepNumberA;
       })}
       keyExtractor={(item, index) => index.toString()}
-      renderItem={({ item }) => <StepCard {...item} />}
+      renderItem={({ item }) => <StepCard {...item} navigation={navigation} />}
       ListHeaderComponent={
         <View style={styles.stepContainer}>
           <View style={styles.subHeader}>
-            <Text style={styles.subHeaderId}>SR-30458</Text>
-            <Text style={styles.subHeaderTitle}> - License Deregistration</Text>
+            <Text style={styles.subHeaderId}>{SRId} - </Text>
+            <Text style={styles.subHeaderTitle}>{name}</Text>
           </View>
           <View>
             <Text style={styles.subTitle}>REQUEST STEPS</Text>
@@ -81,7 +81,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     padding: 15,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginHorizontal: 20,
+    flexWrap: 'nowrap'
+
   },
   subTitle: { textAlign: 'center', fontWeight: 'bold', fontSize: 16 },
   subHeaderId: {
@@ -93,7 +96,8 @@ const styles = StyleSheet.create({
   subHeaderTitle: {
     color: 'black',
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   stepHeader: {
     flexDirection: 'row',

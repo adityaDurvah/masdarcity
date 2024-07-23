@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal, FlatList, StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 interface CustomDropdownProps {
-    options: string[];
+    options: [any];
     onChange?: (option: string) => void;
     value?: string;
 }
@@ -29,7 +29,7 @@ export const Dropdown: React.FC<CustomDropdownProps> = ({
         <View style={styles.container}>
             <TouchableOpacity onPress={toggleDropdown} style={[styles.button]}>
                 <Text style={[styles.buttonText]}>
-                    {value || 'Select an option'}
+                    {options.find((item) => item.value === value)?.label || 'Select an option'}
                 </Text>
                 <AntDesign name="down" size={20} color="black" />
             </TouchableOpacity>
@@ -42,13 +42,13 @@ export const Dropdown: React.FC<CustomDropdownProps> = ({
                     <View style={styles.modalContent}>
                         <FlatList
                             data={options}
-                            keyExtractor={(item) => item}
+                            keyExtractor={(item) => item.value}
                             renderItem={({ item }) => (
                                 <TouchableOpacity
                                     style={[styles.option]}
-                                    onPress={() => handleSelect(item)}
+                                    onPress={() => handleSelect(item.value)}
                                 >
-                                    <Text style={[styles.optionText]}>{item}</Text>
+                                    <Text style={[styles.optionText]}>{item.label}</Text>
                                 </TouchableOpacity>
                             )}
                         />
