@@ -9,7 +9,7 @@ export default function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="ServiceStepsScreen"
+        initialRouteName="ServiceListScreen"
         screenOptions={{
           headerBackTitle: "",
           headerShown: true,
@@ -23,7 +23,7 @@ export default function AppNavigator() {
         <Stack.Screen
           component={ServiceListScreen}
           name="ServiceListScreen"
-          options={{ title: "ServiceListScreen" }}
+          options={{ title: "Service List" }}
         />
         <Stack.Screen
           component={StepsScreen}

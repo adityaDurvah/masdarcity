@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { View, FlatList, StyleSheet, Touchable, Pressable } from "react-native";
 import { Card, Text, Badge, Searchbar } from "react-native-paper";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 import { getServiceListItems } from "../../Services/apiRequests";
+import colors from "../../Styles/colors";
 import { globalStyles } from "../../Styles/global";
-
+import {formatDate} from '../../Services/commonUtils';
 interface Item {
   id: string;
   name: string;
@@ -65,11 +67,11 @@ const TaskCard: React.FC<{ item: SRDetail, navigation: any }> = ({ item, navigat
       <View style={styles.row}>
         <Text style={styles.srNumber}>{item.Name}</Text>
         <View style={styles.column2}>
-          <Text style={styles.title}>{item.recordtype}</Text>
+          <Text style={styles.title}>{item.ServiceName}</Text>
           <Text style={styles.company}>{item.account__r_name}</Text>
           <Badge style={styles.status}>{item.ServiceName}</Badge>
         </View>
-        <Text style={styles.date}>{item.SubmittedDate__c}</Text>
+        <Text style={styles.date}>{formatDate(item.SubmittedDate__c, 'DD-MM-YYYY')}</Text>
       </View>
     </Card.Content>
     </Pressable>
@@ -149,7 +151,7 @@ const ServiceListScreen: React.FC<any> = ({ navigation }: { navigation: any }) =
 const styles = StyleSheet.create({
 
   column2: {
-    width: '60%'
+    width: '55%'
   }, 
   searchbar: {
     margin: 10,
@@ -160,40 +162,44 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     flexWrap: "wrap",
+    width: '100%',
+    padding: 4
   },
   srNumber: {
     color: "#F79256",
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: "bold",
     marginRight: 16, 
-    width: '20%'
+    width: '18%'
   },
   date: {
-    color: "#000",
-    fontSize: 14,
+    color: colors.GREY60,
+    fontSize: 10,
     alignSelf: "flex-end", 
-    width: '10%'
+    flexDirection: 'row-reverse',
+    width: '18%'
 
   },
   title: {
     color: "#000",
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: "bold",
     marginVertical: 4,
   },
   company: {
     color: "#888",
-    fontSize: 14,
+    fontSize: 12,
     marginBottom: 10,
   },
   status: {
-    backgroundColor: "#C2FDEB",
+    backgroundColor: colors.PRIMARY_COLOR,
     color: "#000",
     fontSize: 12,
     fontWeight: "bold",
     alignSelf: "flex-start",
     borderRadius: 10,
     paddingHorizontal: 8,
+    width: '80%'
     // paddingVertical: 4,
   },
 });
