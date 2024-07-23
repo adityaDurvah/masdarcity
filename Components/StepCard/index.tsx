@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-paper';
 import colors from '../../Styles/colors';
+import { Text } from '../Text';
 
 interface StepProps {
   stepfields: [{
@@ -24,14 +25,14 @@ export const StepCard: React.FC<any> = (props: StepProps) => {
     <Card style={styles.card}>
       <Card.Content >
         <View style={styles.row}>
-          <Text style={styles.stepNumber}>{StepNumber__c}</Text>
+          <Text style={styles.stepNumber}>{parseInt(StepNumber__c)}</Text>
           <Text style={styles.stepTitle}>{Name}</Text>
         </View>
         <View style={styles.col}>
           <Text style={styles.stepDates}>
             Created: {createddate.split(' ')[0]}
           </Text>
-          {lastmodifieddate != 'null' ? <Text style={styles.stepDates}>
+          {ClosedDateTime__c == 'null' && lastmodifieddate != 'null' ? <Text style={styles.stepDates}>
             Modified: {lastmodifieddate.split(' ')[0]}
           </Text> : null}
           {ClosedDateTime__c != 'null' ? <Text style={styles.stepDates}>
@@ -53,9 +54,10 @@ export const StepCard: React.FC<any> = (props: StepProps) => {
 const styles = StyleSheet.create({
   card: {
     margin: 10,
-    borderRadius: 10,
+    borderRadius: 15,
     padding: 15,
     elevation: 2,
+    backgroundColor: '#F0F0F0'
   },
   row: {
     flex: 1,
@@ -82,15 +84,17 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   stepNumber: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: 'bold',
     color: '#333',
-    marginRight: 10,
+    // marginRight: 20,
+    width: 60
   },
   stepTitle: {
     fontSize: 18,
+    fontWeight: 'bold',
     color: '#333',
-    flex: 1, flexWrap: 'wrap'
+    flex: 1, flexWrap: 'wrap',
   },
   stepDates: {
     fontSize: 12,
@@ -112,7 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.PRIMARY_COLOR,
   },
   buttonText: {
-    color: 'white',
+    color: 'black',
     fontSize: 14,
   },
   disabled: {

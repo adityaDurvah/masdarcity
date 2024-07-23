@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Text, StyleSheet, FlatList, View } from 'react-native';
-import { StepCard } from '../../Components/step-card';
+import { StepCard } from '../../Components/StepCard';
 import { getApiData } from '../../Services/apiManager';
 
 interface Step {
@@ -45,8 +45,8 @@ export const StepsScreen: React.FC<any> = ({ navigation, route }) => {
         let stepNumberB = parseFloat(b?.stepfields?.find(field => field.API_Name === "StepNumber__c")?.value);
 
         // Compare the step numbers
-        return stepNumberA - stepNumberB;
-      }).reverse()}
+        return stepNumberB - stepNumberA;
+      })}
       keyExtractor={(item, index) => index.toString()}
       renderItem={({ item }) => <StepCard {...item} />}
       ListHeaderComponent={
@@ -84,12 +84,14 @@ const styles = StyleSheet.create({
   subTitle: { textAlign: 'center', fontWeight: 'bold', fontSize: 16 },
   subHeaderId: {
     color: '#FF6A00',
-    fontSize: 16,
+    fontSize: 20,
     marginBottom: 5,
+    fontWeight: 'bold'
   },
   subHeaderTitle: {
     color: 'black',
-    fontSize: 16,
+    fontSize: 20,
+    fontWeight: 'bold'
   },
   stepHeader: {
     flexDirection: 'row',
