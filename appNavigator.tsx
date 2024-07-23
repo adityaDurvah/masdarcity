@@ -4,6 +4,7 @@ import ServiceListScreen from "./Screens/ServiceListScreen";
 const Stack = createNativeStackNavigator();
 import { globalStyles } from './Styles/global';
 import { StepsScreen } from "./Screens/StepsScreen";
+import { DocumentUpload } from "./Screens/DocumentUpload";
 
 export default function AppNavigator() {
   return (
@@ -28,7 +29,12 @@ export default function AppNavigator() {
         <Stack.Screen
           component={StepsScreen}
           name="ServiceStepsScreen"
-          options={{ title: "ServiceStepsScreen" }}
+          options={{ title: "Service Steps Screen" }}
+        />
+        <Stack.Screen
+          component={DocumentUpload}
+          name="DocumentUpload"
+          options={{ title: "Document Upload" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
