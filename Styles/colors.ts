@@ -1,5 +1,6 @@
 
-export default{
-  PRIMARY_COLOR: '#3b6a80'
+export default {
+  PRIMARY_COLOR: '#37FFAF',
+  DISABLED: '#C0C0C0',
 }
 

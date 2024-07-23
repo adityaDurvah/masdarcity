@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet, Touchable, Pressable } from "react-native";
 import { Card, Text, Badge, Searchbar } from "react-native-paper";
 import { getServiceListItems } from "../../Services/apiRequests";
 import { globalStyles } from "../../Styles/global";
@@ -58,8 +58,9 @@ const data: Item[] = [
   // Add more items as needed
 ];
 
-const TaskCard: React.FC<{ item: SRDetail }> = ({ item }) => (
+const TaskCard: React.FC<{ item: SRDetail, navigation: any }> = ({ item, navigation }) => (
   <Card style={globalStyles.card}>
+    <Pressable onPress={() => navigation.navigate("ServiceStepsScreen", { SRId: item.ID })}>
     <Card.Content>
       <View style={styles.row}>
         <Text style={styles.srNumber}>{item.Name}</Text>
@@ -71,10 +72,11 @@ const TaskCard: React.FC<{ item: SRDetail }> = ({ item }) => (
         <Text style={styles.date}>{item.SubmittedDate__c}</Text>
       </View>
     </Card.Content>
+    </Pressable>
   </Card>
 );
 
-const ServiceListScreen: React.FC = () => {
+const ServiceListScreen: React.FC<any> = ({ navigation }: { navigation: any }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [listData, setListData] = useState<SRDetail[]>([]);
   const [filteredData, setFilteredData] = useState<SRDetail[]>(listData);
@@ -125,7 +127,7 @@ const ServiceListScreen: React.FC = () => {
     }
   };
 
-  const renderItem = ({ item }: { item: SRDetail }) => <TaskCard item={item} />;
+  const renderItem = ({ item }: { item: SRDetail }) => <TaskCard item={item} navigation={navigation} />;
 
   return (
     <View style={globalStyles.container}>
@@ -156,7 +158,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-around",    
+    justifyContent: "space-around",
     flexWrap: "wrap",
   },
   srNumber: {
