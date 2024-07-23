@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#000",
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: "bold",
     // marginVertical: 4,
   },
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
   status: {
     backgroundColor: colors.PRIMARY_COLOR,
     color: "#000",
-    fontSize: 12,
+    fontSize: 10,
     fontWeight: "bold",
     alignSelf: "flex-start",
     borderRadius: 10,
