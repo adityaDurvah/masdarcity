@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
   },
   srNumber: {
     color: "#F79256",
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: "bold",
     marginRight: 14,
   },
