@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View, FlatList, StyleSheet, Touchable, Pressable } from "react-native";
+import { View, FlatList, StyleSheet, Pressable } from "react-native";
 import { Card, Badge, Searchbar } from "react-native-paper";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import { getServiceListItems } from "../../Services/apiRequests";
 import colors from "../../Styles/colors";
 import { globalStyles } from "../../Styles/global";
@@ -9,13 +8,6 @@ import { formatDate } from "../../Services/commonUtils";
 import { debounce } from "lodash";
 import { Text } from "../../Components/Text";
 
-interface Item {
-  id: string;
-  name: string;
-  company: string;
-  status: string;
-  date: string;
-}
 interface SRDetail {
   Name: string;
   ID: string;
@@ -45,28 +37,29 @@ const TaskCard: React.FC<{ item: SRDetail; navigation: any }> = ({
   <Card style={globalStyles.card}>
     <Pressable
       onPress={() =>
-        navigation.navigate("ServiceStepsScreen", {
-          id: item.ID,
-          SRId: item.Name,
-          name: item.ServiceName,
-        })
+        navigation.navigate("ServiceStepsScreen", { data: item })
       }
     >
-      <Card.Content>
+      <Card.Content style={styles.cardContent}>
         <View style={styles.row}>
-          <Text style={styles.srNumber}>{item.Name}</Text>
+          <View style={styles.column1}>
+            <Text style={styles.srNumber}>{item.Name}</Text>
+          </View>
           <View style={styles.column2}>
             <Text style={styles.title}>{item.ServiceName}</Text>
             <Text style={styles.company}>{item.account__r_name}</Text>
-            <Badge style={styles.status}>{item.ServiceName}</Badge>
+            <Badge style={styles.status}>{'Completed'}</Badge>
           </View>
-          <Text style={styles.date}>
-            {formatDate(item.SubmittedDate__c, "DD-MM-YYYY")}
-          </Text>
+          <View style={styles.column3}>
+
+            <Text style={styles.date}>
+              {formatDate(item.SubmittedDate__c, "DD/MM/YYYY")}
+            </Text>
+          </View>
         </View>
       </Card.Content>
     </Pressable>
-  </Card>
+  </Card >
 );
 
 const ServiceListScreen: React.FC<any> = ({
@@ -162,40 +155,47 @@ const ServiceListScreen: React.FC<any> = ({
 };
 
 const styles = StyleSheet.create({
+  cardContent: {
+    paddingTop: 8,
+  },
+  column1: {
+    flex: 1.6,
+  },
   column2: {
-    width: "55%",
+    flex: 3,
+  },
+  column3: {
+    flex: 1,
+    alignSelf: "flex-end",
   },
   searchbar: {
     margin: 10,
     borderRadius: 10,
   },
   row: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    flexWrap: "wrap",
     width: "100%",
-    padding: 4,
   },
   srNumber: {
     color: "#F79256",
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: "bold",
-    marginRight: 16,
-    width: "18%",
+    marginRight: 14,
   },
   date: {
     color: colors.GREY60,
-    fontSize: 10,
+    fontSize: 9,
     alignSelf: "flex-end",
     flexDirection: "row-reverse",
-    width: "18%",
   },
   title: {
     color: "#000",
     fontSize: 14,
     fontWeight: "bold",
-    // marginVertical: 4,
+    width: "120%",
   },
   company: {
     color: "#888",
@@ -203,14 +203,14 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   status: {
-    backgroundColor: colors.PRIMARY_COLOR,
+    backgroundColor: '#B5FFF3',
     color: "#000",
     fontSize: 10,
     fontWeight: "bold",
     alignSelf: "flex-start",
     borderRadius: 10,
     paddingHorizontal: 8,
-    width: "80%",
+    width: "60%",
     marginBottom: 4,
   },
 });

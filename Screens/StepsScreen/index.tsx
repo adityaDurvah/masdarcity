@@ -31,7 +31,7 @@ interface Data {
   Steps: Step[];
 }
 export const StepsScreen: React.FC<any> = ({ navigation, route }) => {
-  const { SRId, name } = route.params
+  const { data: { Name, ServiceName } } = route.params
   const { data, getData } = getApiData<Data>('/SRDetails', { SRId: route.params.SRId });
 
   useEffect(() => {
@@ -54,8 +54,8 @@ export const StepsScreen: React.FC<any> = ({ navigation, route }) => {
       ListHeaderComponent={
         <View style={styles.stepContainer}>
           <View style={styles.subHeader}>
-            <Text style={styles.subHeaderId}>{SRId} - </Text>
-            <Text style={styles.subHeaderTitle}>{name}</Text>
+            <Text style={styles.subHeaderId}>{Name} - </Text>
+            <Text style={styles.subHeaderTitle}>{ServiceName}</Text>
           </View>
           <View>
             <Text style={styles.subTitle}>REQUEST STEPS</Text>

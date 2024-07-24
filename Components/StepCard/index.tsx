@@ -32,13 +32,13 @@ export const StepCard: React.FC<any> = (props: StepProps) => {
         </View>
         <View style={styles.col}>
           <Text style={styles.stepDates}>
-            Created: {formatDate(createddate, 'DD-MM-YYYY')}
+            Created: {formatDate(createddate, 'DD/MM/YYYY')}
           </Text>
           {ClosedDateTime__c == 'null' && lastmodifieddate != 'null' ? <Text style={styles.stepDates}>
-            Modified: {formatDate(lastmodifieddate, 'DD-MM-YYYY')}
+            Modified: {formatDate(lastmodifieddate, 'DD/MM/YYYY')}
           </Text> : null}
           {ClosedDateTime__c != 'null' ? <Text style={styles.stepDates}>
-            Closed: {formatDate(ClosedDateTime__c, 'DD-MM-YYYY')}
+            Closed: {formatDate(ClosedDateTime__c, 'DD/MM/YYYY')}
           </Text> : null}
         </View>
         {Comments__c && <Text style={styles.comments}>Comments: {Comments__c}</Text>}
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     color: '#333',
-    // marginRight: 20,
+    marginRight: 4,
     width: 60
   },
   stepTitle: {
