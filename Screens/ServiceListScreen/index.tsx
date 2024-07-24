@@ -45,7 +45,11 @@ const TaskCard: React.FC<{ item: SRDetail; navigation: any }> = ({
   <Card style={globalStyles.card}>
     <Pressable
       onPress={() =>
-        navigation.navigate("ServiceStepsScreen", { id: item.ID, SRId: item.Name, name: item.ServiceName })
+        navigation.navigate("ServiceStepsScreen", {
+          id: item.ID,
+          SRId: item.Name,
+          name: item.ServiceName,
+        })
       }
     >
       <Card.Content>
@@ -75,6 +79,11 @@ const ServiceListScreen: React.FC<any> = ({
   const [filteredData, setFilteredData] = useState<SRDetail[]>(listData);
 
   useEffect(() => {
+    const getListItems = async () => {
+      let response = await getServiceListItems();
+      setListData(formatData(response));
+      setFilteredData(formatData(response));
+    };
     getListItems();
   }, []);
 
@@ -99,17 +108,6 @@ const ServiceListScreen: React.FC<any> = ({
     });
   };
 
-  const getListItems = async () => {
-    let response = await getServiceListItems();
-    setListData(formatData(response));
-    setFilteredData(formatData(response));
-  };
-
-  const handleSearch = (text: string) => {
-    setSearchQuery(text);
-    onChangeSearch(text);
-  };
-
   const onChangeSearch = useCallback(
     debounce((query: string) => {
       console.log("ListData: ", listData);
@@ -124,14 +122,23 @@ const ServiceListScreen: React.FC<any> = ({
           console.log("index: ", value);
           return value;
         });
-        console.log("Filtered data: ", newData);
+        console.log("Filtered data: ", newData.length);
         setFilteredData(newData);
       } else {
         setFilteredData(listData);
       }
     }, 300),
-    []
+    [listData]
   );
+
+  useEffect(() => {
+    onChangeSearch(searchQuery);
+  }, [searchQuery, onChangeSearch]);
+
+  const handleSearch = (text: string) => {
+    setSearchQuery(text);
+    onChangeSearch(text);
+  };
 
   const renderItem = ({ item }: { item: SRDetail }) => (
     <TaskCard item={item} navigation={navigation} />
