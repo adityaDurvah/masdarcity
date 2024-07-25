@@ -4,7 +4,8 @@ import { Form } from '../../Components/Form'
 
 
 export const DocumentUpload: React.FC = ({ navigation, route }: any) => {
-    const { statusList } = route.params
+    const { statusList, currentStatus } = route.params
+    const options = statusList.map(({ label, ID }: { label: string, ID: any }) => ({ label, value: ID }))
     return (
         <View style={styles.container}>
             <Text style={styles.header}>Document Upload</Text>
@@ -15,11 +16,12 @@ export const DocumentUpload: React.FC = ({ navigation, route }: any) => {
                         type: 'dropdown',
                         placeholder: 'Select Status',
                         required: true,
-                        options: statusList.map(({ label, ID }: { label: string, ID: any }) => ({ label, value: ID })),
+                        options,
                         label: 'Status'
                     }
                 ]}
                 navigation={navigation}
+                data={{ status: options.find(({ label }: { label: string }) => label === currentStatus)?.value }}
             />
         </View>
     )

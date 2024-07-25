@@ -45,7 +45,7 @@ export const StepCard: React.FC<any> = (props: StepProps) => {
       </Card.Content>
       <View style={styles.divider} />
       <Card.Actions>
-        <TouchableOpacity onPress={() => { navigation.navigate('DocumentUpload', { statusList: statusMasterList }) }} style={[styles.button, ...(statusMasterList.length === 0 ? [styles.disabled] : []),]}>
+        <TouchableOpacity onPress={() => { navigation.navigate('DocumentUpload', { statusList: statusMasterList, currentStatus }) }} style={[styles.button, ...(statusMasterList.length === 0 ? [styles.disabled] : []),]}>
           <Text style={styles.buttonText}>{currentStatus}</Text>
         </TouchableOpacity>
       </Card.Actions>

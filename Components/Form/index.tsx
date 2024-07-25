@@ -9,9 +9,10 @@ import colors from '../../Styles/colors';
 interface FormProps {
     inputProps: [any]
     navigation: any
+    data?: any
 }
 
-export const Form: React.FC<FormProps> = ({ inputProps, navigation }) => {
+export const Form: React.FC<FormProps> = ({ inputProps, navigation, data = {} }) => {
     const obj: any = {}
     inputProps.forEach(({ name, required }) => {
         obj[name] = Yup.string()
@@ -21,7 +22,7 @@ export const Form: React.FC<FormProps> = ({ inputProps, navigation }) => {
     return (
         <>
             <Formik
-                initialValues={{}}
+                initialValues={data}
                 validationSchema={validationSchema}
                 onSubmit={(values) => {
                     console.log(values);
