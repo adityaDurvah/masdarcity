@@ -52,7 +52,7 @@ apiClient.interceptors.response.use(
   }
 );
 
-export const getApiData = <T,>(path: string, params: object) => {
+export const getApiData = <T,>(path: string, params: any) => {
   const [data, setData] = useState<T | null>(null);
   const getData = async () => {
     try {

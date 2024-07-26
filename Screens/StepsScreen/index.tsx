@@ -31,39 +31,40 @@ interface Data {
   Steps: Step[];
 }
 export const StepsScreen: React.FC<any> = ({ navigation, route }) => {
-  const { data: { Name, ServiceName } } = route.params
-  const { data, getData } = getApiData<Data>('/SRDetails', { SRId: route.params.SRId });
+  const { data: { Name, ServiceName, ID } } = route.params
+  const { data, getData } = getApiData<Data>('/SRDetails', { SRId: ID });
 
   useEffect(() => {
     getData()
   }, [])
 
   return (
-    <FlatList
-      style={styles.container}
-      data={data?.Steps.sort((a, b) => {
-        // Extracting StepNumber__c value from stepfields
-        let stepNumberA = parseFloat(a?.stepfields?.find(field => field.API_Name === "StepNumber__c")?.value);
-        let stepNumberB = parseFloat(b?.stepfields?.find(field => field.API_Name === "StepNumber__c")?.value);
+    !data || data?.Steps?.length ?
+      <FlatList
+        style={styles.container}
+        data={data?.Steps.sort((a, b) => {
+          // Extracting StepNumber__c value from stepfields
+          let stepNumberA = parseFloat(a?.stepfields?.find(field => field.API_Name === "StepNumber__c")?.value);
+          let stepNumberB = parseFloat(b?.stepfields?.find(field => field.API_Name === "StepNumber__c")?.value);
 
-        // Compare the step numbers
-        return stepNumberB - stepNumberA;
-      })}
-      keyExtractor={(item, index) => index.toString()}
-      renderItem={({ item }) => <StepCard {...item} navigation={navigation} />}
-      ListHeaderComponent={
-        <View style={styles.stepContainer}>
-          <View style={styles.subHeader}>
-            <Text style={styles.subHeaderId}>{Name} - </Text>
-            <Text style={styles.subHeaderTitle}>{ServiceName}</Text>
+          // Compare the step numbers
+          return stepNumberB - stepNumberA;
+        })}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => <StepCard {...item} navigation={navigation} />}
+        ListHeaderComponent={
+          <View style={styles.stepContainer}>
+            <View style={styles.subHeader}>
+              <Text style={styles.subHeaderId}>{Name} - </Text>
+              <Text style={styles.subHeaderTitle}>{ServiceName}</Text>
+            </View>
+            <View>
+              <Text style={styles.subTitle}>REQUEST STEPS</Text>
+            </View>
           </View>
-          <View>
-            <Text style={styles.subTitle}>REQUEST STEPS</Text>
-          </View>
-        </View>
-      }
-      ListHeaderComponentStyle={styles.subHeader}
-    />
+        }
+        ListHeaderComponentStyle={styles.subHeader}
+      /> : <Text style={{ textAlign: 'center', marginTop: 20 }}>No steps found</Text>
   );
 };
 

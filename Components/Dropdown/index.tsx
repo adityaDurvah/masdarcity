@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal, FlatList, StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 interface CustomDropdownProps {
-    options: [any];
+    options: any[];
     onChange?: (option: string) => void;
     value?: string;
 }

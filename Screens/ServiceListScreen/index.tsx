@@ -16,6 +16,7 @@ interface SRDetail {
   account__r_name: string;
   recordtype: string;
   ServiceName: string;
+  IntStatus__c: string;
 }
 
 interface InputData {
@@ -48,7 +49,7 @@ const TaskCard: React.FC<{ item: SRDetail; navigation: any }> = ({
           <View style={styles.column2}>
             <Text style={styles.title}>{item.ServiceName}</Text>
             <Text style={styles.company}>{item.account__r_name}</Text>
-            <Badge style={styles.status}>{'Completed'}</Badge>
+            <Badge style={styles.status}>{item.IntStatus__c}</Badge>
           </View>
           <View style={styles.column3}>
 
@@ -97,25 +98,26 @@ const ServiceListScreen: React.FC<any> = ({
         account__r_name: detailObject["account__r_name"],
         recordtype: detailObject["recordtype"],
         ServiceName: detailObject["ServiceName"],
+        IntStatus__c: detailObject["IntStatus__c"],
       } as SRDetail;
     });
   };
 
   const onChangeSearch = useCallback(
     debounce((query: string) => {
-      console.log("ListData: ", listData);
+      //console.log("ListData: ", listData);
       if (query) {
         const newData = listData.filter((item) => {
           const itemData = `${item.Name.toUpperCase()} ${item.ServiceName.toUpperCase()} ${item.account__r_name.toUpperCase()}`;
-          console.log("itemData: ", itemData);
+          //console.log("itemData: ", itemData);
           const textData = query.toUpperCase();
-          console.log("Text Data: ", textData);
+          //console.log("Text Data: ", textData);
 
           const value = itemData.indexOf(textData) > -1;
-          console.log("index: ", value);
+          //console.log("index: ", value);
           return value;
         });
-        console.log("Filtered data: ", newData.length);
+        //console.log("Filtered data: ", newData.length);
         setFilteredData(newData);
       } else {
         setFilteredData(listData);
@@ -210,7 +212,8 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     borderRadius: 10,
     paddingHorizontal: 8,
-    width: "60%",
+    // width: "60%",
+    // flexGrow: 1,
     marginBottom: 4,
   },
 });
