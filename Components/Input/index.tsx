@@ -21,23 +21,23 @@ const CustomPhoneInput = memo((props: any) => (
     />
 ));
 
-const CustomDatePicker = ((props: any) => {
+const CustomDatePicker = memo((props: any) => {
     const [open, setOpen] = useState(false)
     return (
         <SafeAreaView>
             <Pressable style={styles.dateContainer} onPress={() => { setOpen(true) }} >
                 <Fontisto name="date" size={24} color="black" />
-                <Text style={styles.dateText} >{props.value || 'Select Date'}</Text>
+                <Text style={styles.dateText} >{new Date(props.value).toLocaleDateString() || 'Select Date'}</Text>
             </Pressable>
             {open && <DateTimePicker
                 testID="dateTimePicker"
-                value={props.value || new Date()}
+                value={props.value ? new Date(props.value) : new Date()}
                 mode="date"
                 is24Hour={true}
                 display="default"
                 onChange={(_, date) => {
                     setOpen(false);
-                    props.onChange(date?.toLocaleDateString())
+                    props.onChange(date?.toISOString());
                 }}
             />}
         </SafeAreaView>
@@ -68,21 +68,22 @@ export const Input = (props: InputComponentProps) => {
             Component = CustomPhoneInput
             break
         case 'dropdown':
-            Component = (props) => <Dropdown onChange={handleChange(name)} {...props} />
+            Component = Dropdown
             break;
         case 'date':
-            Component = (props) => <CustomDatePicker onChange={handleChange(name)} {...props} />
+            Component = CustomDatePicker
             break;
         default:
             Component = TextInput
     }
 
     return (
-        <View>
+        <View style={styles.container}>
             <Text style={styles.label}>{required ? <Text style={{ color: 'red' }}>*</Text> : null} {label}</Text>
             <Component
                 {...inputProps}
                 onChangeText={handleChange(name)}
+                onChange={handleChange(name)}
                 onBlur={handleBlur(name)}
                 value={values[name]}
                 style={styles.input}
@@ -94,6 +95,9 @@ export const Input = (props: InputComponentProps) => {
 
 
 const styles = StyleSheet.create({
+    container: {
+        marginBottom: 15,
+    },
     dateContainer: {
         flexDirection: 'row',
         alignItems: 'center',

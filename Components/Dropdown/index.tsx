@@ -61,7 +61,7 @@ export const Dropdown: React.FC<CustomDropdownProps> = ({
 
 const styles = StyleSheet.create({
     container: {
-        margin: 10,
+        // margin: 10,
     },
     button: {
         padding: 10,

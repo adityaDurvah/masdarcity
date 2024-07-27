@@ -58,19 +58,20 @@ export const Form: React.FC<FormProps> = ({ inputFields, navigation, data = {} }
         setFields(updatedFields);
     }, nestedFields.map(({ name }) => formik.values[name]))
     return (
-        <>
-            <View >
-                {fields.map((props: any) => <Input key={props.name} inputProps={props} {...rest} />)}
-                <TouchableOpacity style={styles.button} onPress={handleSubmit} >
+        <View style={styles.container}>
+            {fields.map((props: any) => <Input key={props.name} inputProps={props} {...rest} />)}
+            <TouchableOpacity style={styles.button} onPress={handleSubmit} >
 
-                    <Text >Submit</Text>
-                </TouchableOpacity>
-            </View>
-        </>
+                <Text >Submit</Text>
+            </TouchableOpacity>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
+    container: {
+        width: '100%',
+    },
     button: {
         alignItems: 'center',
         justifyContent: 'center',
