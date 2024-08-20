@@ -14,12 +14,10 @@ const discovery = {
 const config = {
     //preprod
     // clientId: '3MVG99H7o8BRmFkXCFuOYgbOKAIa7ePWrekr00VRoS45H0BYgw047eUPsc4uhFtR8ISV8X0pR8ueMNdGaXL3t',
-    // clientSecret: '3BBD3C3BD4C6EC90C5019CB742EEF8DE200A990AB8619B8FDEC0ACD788D28ABF',
     //sit
     clientId: '3MVG9ni3C0bUFjkoxZgo9PAfbYkDFaA74YD2s59njbnSxoNuijk5_YhdkejQpK8xcDjd6t865uq4F4KSblHwF',
-    clientSecret: 'D599E76970087D0DEBC6C8F2848CDA083B29A1DD44ABBBF46229C2ED09D65D88',
     redirectUri,
-    scopes: ['full','refresh_token'],
+    scopes: ['full'],
     usePKCE: true, 
 };
 
@@ -28,14 +26,14 @@ const SalesforceLogin: React.FC = () => {
         try {
             const authRequest = new AuthSession.AuthRequest(config);
             const authResponse = await authRequest.promptAsync(discovery);
-            console.log('==========', authResponse,typeof authResponse);
+            
             if (authResponse.type === 'success') {
                 const tokenResponse = await fetch(discovery.tokenEndpoint, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: `grant_type=authorization_code&code=${authResponse.params.code}&client_id=${config.clientId}&client_secret=${config.clientSecret}&redirect_uri=${redirectUri}&code_verifier=${authRequest.codeVerifier}`,
+                    body: `grant_type=authorization_code&code=${authResponse.params.code}&client_id=${config.clientId}&redirect_uri=${redirectUri}&code_verifier=${authRequest.codeVerifier}`,
                 });
                 const tokens = await tokenResponse.json();
 
