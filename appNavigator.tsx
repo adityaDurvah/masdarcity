@@ -5,12 +5,13 @@ const Stack = createNativeStackNavigator();
 import { globalStyles } from './Styles/global';
 import { StepsScreen } from "./Screens/StepsScreen";
 import { DocumentUpload } from "./Screens/DocumentUpload";
+import SalesforceLogin from "./Screens/Salesforce";
 
 export default function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="ServiceListScreen"
+        initialRouteName="Salesforce"
         screenOptions={{
           headerBackTitle: "",
           headerShown: true,
@@ -35,6 +36,11 @@ export default function AppNavigator() {
           component={DocumentUpload}
           name="DocumentUpload"
           options={{ title: "Document Upload" }}
+        />
+        <Stack.Screen
+          component={SalesforceLogin}
+          name="Salesforce"
+          options={{ title: "Salesforce" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
