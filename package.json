@@ -4,8 +4,8 @@
   "main": "expo/AppEntry.js",
   "scripts": {
     "start": "expo start --port 19001",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "lint": "tslint -p tsconfig.json -c tslint.json 'src/**/*.ts' 'src/**/*.tsx'",
     "build-android": "eas build -p android --profile preview"
@@ -16,7 +16,9 @@
     "@react-navigation/native-stack": "^6.9.10",
     "axios": "^1.7.2",
     "expo": "~51.0.21",
+    "expo-auth-session": "~5.5.2",
     "expo-font": "~12.0.9",
+    "expo-secure-store": "~13.0.2",
     "expo-splash-screen": "~0.27.5",
     "expo-status-bar": "~1.12.1",
     "formik": "^2.4.6",
@@ -33,7 +35,8 @@
     "react-native-sass-transformer": "^3.0.0",
     "react-native-screens": "3.31.1",
     "yup": "^1.4.0",
-    "@react-native-community/datetimepicker": "8.0.1"
+    "@react-native-community/datetimepicker": "8.0.1",
+    "expo-linear-gradient": "~13.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

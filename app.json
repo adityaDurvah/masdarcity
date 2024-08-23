@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme":"com.durvah.masdarcity",
     "name": "masdarcity",
     "slug": "masdarcity",
     "version": "1.0.0",
@@ -38,6 +39,9 @@
         "projectId": "ce8c5510-b888-41a5-ba7d-984c7b65d394"
       }
     },
-    "owner": "abhishek.kollipara"
+    "owner": "abhishek.kollipara",
+    "plugins": [
+      "expo-secure-store"
+    ]
   }
 }
